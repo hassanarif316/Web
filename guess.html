@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: gainsboro;
+        }
+        div{
+            height: 50%;
+            width: 40%;
+            border: 5px solid white;
+            background-color: white;
+            border-radius: 15px;
+            position: relative;
+        }
+        h1,h3,p,h2{
+            text-align: center;
+            font-weight: bold;
+        }
+        input,button{
+            position: relative;
+            left: 25%;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 10px;
+            border: 2px solid ghostwhite;
+        }
+        button{
+            background-color: rgb(65, 204, 65);
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        #try{
+            display: block;
+            position: relative;
+            left: 34%;
+            background-color: black;
+            
+        }
+        #again{
+            position: relative;
+            background-color: red;
+            top: -50%;
+            left: 25%;
+            width: 50%;
+            height: 65%;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div>
+    <h1>Guess a number</h1>
+
+    <input type="number" id="num" placeholder="(1 to 100)">
+    <button>Check</button>
+
+    <h3></h3>
+    <p>Attempts left: <span>5</span></p>
+    <div id="again"></div>
+
+    </div>
+    <script>
+        inp=document.querySelector("input")
+        btn=document.querySelector("button")
+        hint=document.querySelector("h3")
+        a=document.querySelector("p span")
+        div=document.querySelector("div")
+        //console.log(a)
+        num=Math.random() *5
+        console.log(num)
+        att=5
+        again=document.querySelector("#again")
+
+        again.innerHTML='<h2>Game Over</h2>'
+        again.innerHTML+=`<p>Better luck next time!</p>`
+        again.innerHTML+= `<button id="try">Try Again</button>`
+
+        btn.addEventListener('click',()=>{
+            if(inp.value==num){
+                hint.innerText="Correct guess. You Won!"
+                hint.style.color="green"
+                btn.disabled="true"
+                div.style.border="5px solid green"
+            }
+            else if(inp.value<44){
+                hint.innerText="Your input is less than number"
+            }
+            else{
+                hint.innerText="Your input is greater than number"
+            }
+            att--
+            a.innerText=att
+
+            if(att==0){
+                hint.innerText="Game over"
+                btn.disabled=true
+                div.style.border="5px solid red"
+                setTimeout(()=>{
+                    again.style.display="block"
+                },1000)
+
+            }else if(att<4){
+                a.style.color="red"
+            }
+        })
+
+        again.addEventListener('click',()=>{
+            btn.disabled=false
+            again.style.display="none"
+            inp.value=" "
+            att=5
+            a.innerText=att
+            hint.innerText=""
+            div.style.border="5px solid white"
+        })
+        
+
+    </script>
+</body>
+</html>
